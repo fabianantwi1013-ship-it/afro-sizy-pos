@@ -733,22 +733,6 @@ function installLinkHandler() {
   });
 }
 
-function installBanner() {
-  const bar = document.createElement('div');
-  bar.className = 'demobar';
-  bar.innerHTML = `
-    <span><strong>Demo</strong> — sample salon data. Ring up a sale, book someone in,
-      look at the takings. Nothing is saved; refresh to start over.</span>
-    <span class="demobar__side">
-      <button type="button" class="demobar__btn" data-demo-reset>Reset</button>
-      <a class="demobar__btn" href="https://github.com/fabianantwi1013-ship-it/afro-sizy-pos"
-         target="_blank" rel="noopener">Source</a>
-    </span>`;
-  document.body.prepend(bar);
-  bar.querySelector('[data-demo-reset]').onclick = () => location.reload();
-}
-
 installLinkHandler();
-installBanner();
 
 export { seedAll };
