@@ -1,0 +1,10 @@
+# Only the demo is deployed. Never upload the salon's live database, and let
+# Vercel build dist/ itself rather than shipping a local copy.
+data/
+dist/
+backups/
+*.db
+*.db-wal
+*.db-shm
+node_modules/
+.git/
