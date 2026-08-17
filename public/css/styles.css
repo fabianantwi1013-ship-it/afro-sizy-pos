@@ -448,6 +448,33 @@ a.btn { text-decoration: none; }
 
 .scrim { position: fixed; inset: 0; background: rgba(29,23,25,.45); z-index: 39; }
 
+/* ============================================================ demo banner */
+.demobar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 60;
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 8px 16px; font-size: 13px;
+  background: #2a1218; color: #f2dfe3;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .08);
+}
+.demobar strong { color: #fff; }
+.demobar__side { margin-left: auto; display: flex; gap: 7px; }
+.demobar__btn {
+  border: 1px solid rgba(255, 255, 255, .28); background: transparent; color: #fff;
+  border-radius: 999px; padding: 3px 11px; font-size: 12.5px; cursor: pointer;
+  text-decoration: none; line-height: 1.5;
+}
+.demobar__btn:hover { background: rgba(255, 255, 255, .14); }
+body:has(.demobar) .shell { padding-top: 37px; }
+body:has(.demobar) .nav,
+body:has(.demobar) .topbar { top: 37px; }
+body:has(.demobar) .nav { height: calc(100dvh - 37px); }
+@media (max-width: 640px) {
+  .demobar { font-size: 12px; padding: 6px 12px; }
+  body:has(.demobar) .shell { padding-top: 58px; }
+  body:has(.demobar) .nav, body:has(.demobar) .topbar { top: 58px; }
+  body:has(.demobar) .nav { height: calc(100dvh - 58px); }
+}
+
 /* ============================================================ receipt */
 .receipt-slot { display: none; }
 .receipt {

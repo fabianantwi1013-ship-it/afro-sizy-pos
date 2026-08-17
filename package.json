@@ -10,6 +10,7 @@
   "scripts": {
     "start": "node --disable-warning=ExperimentalWarning server.js",
     "dev": "node --disable-warning=ExperimentalWarning --watch server.js",
-    "reset": "node --disable-warning=ExperimentalWarning scripts/reset.js"
+    "reset": "node --disable-warning=ExperimentalWarning scripts/reset.js",
+    "build:demo": "node scripts/build-demo.js"
   }
 }

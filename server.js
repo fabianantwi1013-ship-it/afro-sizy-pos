@@ -1,13 +1,15 @@
 import { createServer } from 'node:http';
 import { networkInterfaces } from 'node:os';
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
 import { match } from './src/api/index.js';
 import { HttpError, readBody, sendJson, sendText, serveStatic } from './src/http.js';
 import { readSettings, ROOT, DB_PATH } from './src/db.js';
 
 const PORT = Number(process.env.PORT) || 8787;
 const HOST = process.env.HOST || '0.0.0.0';
-const PUBLIC_DIR = join(ROOT, 'public');
+// Overridable so the Pages demo build in dist/ can be served for testing.
+// resolve() normalises separators, which the static-file guard compares against.
+const PUBLIC_DIR = resolve(process.env.POS_PUBLIC_DIR || join(ROOT, 'public'));
 
 // Anything that changes data needs the PIN header, when a PIN is set in Setup.
 const PIN_EXEMPT = new Set(['/api/unlock']);

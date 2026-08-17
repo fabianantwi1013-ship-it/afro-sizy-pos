@@ -155,14 +155,3 @@ export function asStr(value, field, { max = 500, optional = false } = {}) {
   if (s.length > max) bad(`${field} is too long`);
   return s;
 }
-
-export function csvEscape(value) {
-  const s = String(value ?? '');
-  return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
-}
-
-export function toCsv(headers, rows) {
-  const lines = [headers.map(csvEscape).join(',')];
-  for (const row of rows) lines.push(row.map(csvEscape).join(','));
-  return `﻿${lines.join('\r\n')}\r\n`;
-}

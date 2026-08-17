@@ -7,6 +7,10 @@ no accounts** — everything lives in one file on your machine.
 Built for Ghana: prices in cedis, Mobile Money as a first-class payment method, split
 tenders (part MoMo, part cash), and 80 mm thermal receipts.
 
+**▶ Try it: https://fabianantwi1013-ship-it.github.io/afro-sizy-pos/** — the full app running
+on sample salon data. Ring up a sale, book someone in, look at the takings. Nothing you do
+there is saved, and it is not connected to any real salon.
+
 ---
 
 ## Starting it
@@ -187,6 +191,35 @@ Add `-- --all` to wipe absolutely everything back to a fresh install.
 
 ---
 
+## The online demo
+
+GitHub Pages can only serve static files — it cannot run a Node server or a database. So the
+demo swaps the server out rather than reimplementing the app:
+
+```
+npm run build:demo      # builds dist/
+```
+
+The build copies `public/` unchanged, marks the shell `data-pos-mode="demo"`, and copies in
+the real `src/seed.js` and `src/message.js`. That flag makes `core.js` route every API call
+to `public/js/demo/backend.js` — an in-browser stand-in with the same routes, same rules and
+same response shapes — instead of fetching from the server. The screens cannot tell the
+difference, and because the catalogue and the WhatsApp message come from the real source
+files, the demo cannot drift from the till.
+
+`public/js/demo/store.js` seeds a month of plausible trading from a fixed random seed, so
+everyone who opens the link sees the same numbers. It is all in memory: a refresh resets it.
+
+Pushing to `main` rebuilds and redeploys it via `.github/workflows/pages.yml`. **None of this
+affects the real till** — that runs from `public/` on the salon's machine and never loads the
+demo folder.
+
+To check a demo build locally the way Pages will serve it (from a sub-path):
+
+```bash
+npm run build:demo && POS_PUBLIC_DIR=dist npm start
+```
+
 ## For whoever maintains this
 
 Plain Node with **no dependencies at all** — no `npm install`, no build step, no framework.
@@ -198,7 +231,9 @@ src/db.js            schema, migrations-on-boot, seed data
 src/seed.js          the starting service catalogue and default settings
 src/http.js          router, JSON/CSV helpers, validation
 src/api/*.js         one module per resource
-src/api/whatsapp.js  receipt-as-message text, phone normalisation, wa.me redirect
+src/message.js       receipt-as-message text, phone normalisation, CSV (shared with the demo)
+public/js/demo/      browser stand-in for the API, used only by the Pages build
+scripts/build-demo.js  builds dist/ for GitHub Pages
 public/              the browser app: no framework, ES modules
 public/js/core.js    API client, formatting, dialogs, toasts
 public/js/view-*.js  one module per screen

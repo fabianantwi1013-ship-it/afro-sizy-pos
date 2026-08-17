@@ -30,7 +30,16 @@ export class ApiError extends Error {
   }
 }
 
+/** The GitHub Pages build sets this; the real till never does. */
+export const DEMO = document.documentElement.dataset.posMode === 'demo';
+let demoRequest = null;
+
 export async function api(method, path, body) {
+  if (DEMO) {
+    demoRequest ??= (await import('./demo/backend.js')).request;
+    return demoRequest(method, path, body);
+  }
+
   const headers = {};
   if (body !== undefined) headers['content-type'] = 'application/json';
   const pin = getPin();

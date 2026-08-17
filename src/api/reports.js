@@ -2,7 +2,7 @@ import { createReadStream } from 'node:fs';
 import { unlink } from 'node:fs/promises';
 import { join } from 'node:path';
 import { all, get, db, todayLocal, DATA_DIR } from '../db.js';
-import { toCsv } from '../http.js';
+import { toCsv } from '../message.js';
 
 function range(query) {
   const from = query.get('from') || todayLocal();
