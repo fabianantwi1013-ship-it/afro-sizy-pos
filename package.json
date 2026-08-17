@@ -1,0 +1,15 @@
+{
+  "name": "afro-sizy-pos",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Point of sale, appointments, customers and staff commissions for Afro & Sizy salon",
+  "type": "module",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning server.js",
+    "dev": "node --disable-warning=ExperimentalWarning --watch server.js",
+    "reset": "node --disable-warning=ExperimentalWarning scripts/reset.js"
+  }
+}
